@@ -8,6 +8,10 @@ public class Lorry {
 	private String reg;
 	
 	
+	public Lorry(Long lorryID, String reg) {
+		this.lorryID = lorryID; 
+		this.reg = reg; 
+	}
 	public Long getLorryID() {
 		return lorryID;
 	}
