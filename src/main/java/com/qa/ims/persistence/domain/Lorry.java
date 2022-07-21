@@ -12,6 +12,13 @@ public class Lorry {
 		this.lorryID = lorryID;
 		this.reg = reg;
 	}
+	
+	public Lorry( String reg) {
+		super();
+		this.lorryID = lorryID;
+		this.reg = reg;
+	}
+	
 	public Long getLorryID() {
 		return lorryID;
 	}
