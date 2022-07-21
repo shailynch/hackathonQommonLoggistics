@@ -21,12 +21,11 @@ public class ScheduleDAO implements Dao<Schedule> {
 
 	@Override
 	public Schedule modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long fkScheduleID = resultSet.getLong("fkScheduleID");
 		Date date = resultSet.getDate("date");
 		Long fkLorryID = resultSet.getLong("fkLorryID");
 		String area = resultSet.getString("area");
-		Long scheduleId = resultSet.getLong("scheduleId");
-		return new Schedule(fkScheduleID, date, fkLorryID, area, scheduleId);
+		Long scheduleId = resultSet.getLong("id");
+		return new Schedule(date, fkLorryID, area, scheduleId);
 	}
 
 	/**
@@ -38,7 +37,7 @@ public class ScheduleDAO implements Dao<Schedule> {
 	public List<Schedule> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM Schedule");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM schedule");) {
 			List<Schedule> schedule = new ArrayList<>();
 			while (resultSet.next()) {
 				schedule.add(modelFromResultSet(resultSet));
@@ -54,7 +53,7 @@ public class ScheduleDAO implements Dao<Schedule> {
 	public Schedule readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM Schedule ORDER BY id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM schedule ORDER BY id DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -73,12 +72,12 @@ public class ScheduleDAO implements Dao<Schedule> {
 	public Schedule create(Schedule schedule) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO customers(first_name, surname) VALUES (?, ?)");) {
-			statement.setLong(1, schedule.getFkScheduleID());
-			statement.setDate(2, schedule.getDate());
-			statement.setLong(2, schedule.getFkLorryID());
-			statement.setString(2, schedule.getArea());
-			statement.setLong(2, schedule.getScheduleId());
+						.prepareStatement("INSERT INTO schedule(id, driver_id, lorry_id, area, schedule_date) VALUES (?, ?)");) {
+			statement.setLong(1, schedule.getScheduleId());
+			statement.setDate(5, schedule.getDate());
+			statement.setLong(3, schedule.getFkLorryID());
+			statement.setString(4, schedule.getArea());
+			statement.setLong(2, schedule.getFkDriverID());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -89,11 +88,11 @@ public class ScheduleDAO implements Dao<Schedule> {
 	}
 
 	@Override
-	public Schedule read(Long scheduleID) {
+	public Schedule read(Long scheduleId) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("SELECT * FROM Schedule WHERE scheduleID = ?");) {
-			statement.setLong(1, scheduleID);
+						.prepareStatement("SELECT * FROM schedule WHERE scheduleID = ?");) {
+			statement.setLong(1, scheduleId);
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
 				return modelFromResultSet(resultSet);
@@ -105,23 +104,18 @@ public class ScheduleDAO implements Dao<Schedule> {
 		return null;
 	}
 
-	/**
-	 * Updates a Schedule in the database
-	 * 
-	 * @param customer - takes in a customer object, the id field will be used to
-	 *                 update that customer in the database
-	 * @return
-	 */
+
 	@Override
-	public Schedule update(Schedule Schedule) {
+	public Schedule update(Schedule schedule) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE Schedule SET firstname = ?, surname = ? WHERE scheduleID = ?");) {
-			statement.setString(1, schedule.getFirstName());
-			statement.setString(2, schedule.getSurname());
-			statement.setLong(3, schedule.getScheduleID());
+						.prepareStatement("UPDATE schedule SET driver_id = ?, lorry_id = ?, area = ? WHERE id = ?");) {
+			statement.setLong(1, schedule.getFkDriverID());
+			statement.setLong(2, schedule.getFkLorryID());
+			statement.setString(3, schedule.getArea());
+			statement.setLong(4, schedule.getScheduleId());
 			statement.executeUpdate();
-			return read(schedule.getScheduleID());
+			return read(schedule.getScheduleId());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -135,11 +129,11 @@ public class ScheduleDAO implements Dao<Schedule> {
 	 * @param id - id of the customer
 	 */
 	@Override
-	public int delete(long scheduleID) {
+	public int delete(long scheduleId) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("DELETE FROM Schedule WHERE scheduleID = ?");) {
-			statement.setLong(1, scheduleID);
+						.prepareStatement("DELETE FROM schedule WHERE id = ?");) {
+			statement.setLong(1, scheduleId);
 			return statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);

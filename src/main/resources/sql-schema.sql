@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `logistics`.`driver` (
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `logistics`.`scheduling` (
+CREATE TABLE IF NOT EXISTS `logistics`.`schedule` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `driver_id` INT(11) DEFAULT NULL,
     `lorry_id` VARCHAR(40) DEFAULT NULL,
