@@ -1,6 +1,5 @@
 package com.qa.ims.persistence.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +15,6 @@ import com.qa.ims.persistence.domain.Crate;
 import com.qa.ims.utils.DBUtils;
 
 public class CrateDAO implements Dao<Crate> {
-	
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
@@ -73,7 +71,7 @@ public class CrateDAO implements Dao<Crate> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO crate(schedule_id, area) VALUES (?, ?)");) {
-			statement.setLong(1,  crate.getFkScheduleId());
+			statement.setLong(1, crate.getFkScheduleId());
 			statement.setString(2, crate.getArea());
 			statement.executeUpdate();
 			return readLatest();
@@ -112,9 +110,9 @@ public class CrateDAO implements Dao<Crate> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("UPDATE crate SET schedule_id = ?, area = ? WHERE id = ?");) {
-			statement.setString(1, customer.getFirstName());
 			statement.setLong(1, crate.getFkScheduleId());
 			statement.setString(2, crate.getArea());
+			statement.setLong(3, (crate.getCrateId()));
 			statement.executeUpdate();
 			return read(crate.getCrateId());
 		} catch (Exception e) {

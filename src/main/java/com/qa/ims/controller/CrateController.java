@@ -38,11 +38,11 @@ public class CrateController implements CrudController<Crate> {
 	 */
 	@Override
 	public Crate create() {
-		LOGGER.info("Please enter a first name");
-		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
-		String surname = utils.getString();
-		Crate crate = crateDAO.create(new Crate(firstName, surname));
+		LOGGER.info("Please enter a schedule id");
+		Long scheduleID = utils.getLong();
+		LOGGER.info("Please enter the crate area of operation");
+		String area = utils.getString();
+		Crate crate = crateDAO.create(new Crate(scheduleID, area));
 		LOGGER.info("Crate created");
 		return crate;
 	}
@@ -54,11 +54,11 @@ public class CrateController implements CrudController<Crate> {
 	public Crate update() {
 		LOGGER.info("Please enter the id of the crate you would like to update");
 		Long id = utils.getLong();
-		LOGGER.info("Please enter a first name");
-		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
-		String surname = utils.getString();
-		Crate crate = crateDAO.update(new Crate(id, firstName, surname));
+		LOGGER.info("Please enter a schedule id");
+		Long scheduleID = utils.getLong();
+		LOGGER.info("Please enter the crate area of operation");
+		String area = utils.getString();
+		Crate crate = crateDAO.update(new Crate(id, scheduleID, area));
 		LOGGER.info("Crate Updated");
 		return crate;
 	}
