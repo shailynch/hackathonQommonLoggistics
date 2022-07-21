@@ -11,6 +11,10 @@ public class Product {
 	private String status;
 	private LocalDateTime lastUpdated;
 
+	public Product(Long productID, Long crateID, String address, String status) {
+		
+	}
+
 	public Long getProductID() {
 		return productID;
 	}
