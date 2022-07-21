@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.controller.Action;
+import com.qa.ims.controller.CrateController;
 import com.qa.ims.controller.CrudController;
-import com.qa.ims.controller.CustomerController;
-import com.qa.ims.persistence.dao.CustomerDAO;
+import com.qa.ims.persistence.dao.CrateDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
@@ -15,13 +15,13 @@ public class IMS {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	private final CustomerController customers;
+	private final CrateController crates;
 	private final Utils utils;
 
 	public IMS() {
 		this.utils = new Utils();
-		final CustomerDAO custDAO = new CustomerDAO();
-		this.customers = new CustomerController(custDAO, utils);
+		final CrateDAO crateDAO = new CrateDAO();
+		this.crates = new CrateController(crateDAO, utils);
 	}
 
 	public void imsSystem() {
@@ -46,12 +46,16 @@ public class IMS {
 
 			CrudController<?> active = null;
 			switch (domain) {
-			case CUSTOMER:
-				active = this.customers;
+			case DRIVER:
 				break;
-			case ITEM:
+			case SCHEDULE:
 				break;
-			case ORDER:
+			case CRATE:
+				active = this.crates;
+				break;
+			case LORRY:
+				break;
+			case PRODUCT:
 				break;
 			case STOP:
 				return;
@@ -59,7 +63,7 @@ public class IMS {
 				break;
 			}
 
-			LOGGER.info(() ->"What would you like to do with " + domain.name().toLowerCase() + ":");
+			LOGGER.info(() -> "What would you like to do with " + domain.name().toLowerCase() + ":");
 
 			Action.printActions();
 			Action action = Action.getAction(utils);
