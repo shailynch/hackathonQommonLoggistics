@@ -15,7 +15,6 @@ public class Lorry {
 	
 	public Lorry( String reg) {
 		super();
-		this.lorryID = lorryID;
 		this.reg = reg;
 	}
 	

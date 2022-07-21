@@ -18,7 +18,6 @@ public class Driver {
 
 	public Driver( String firstName, String surname) {
 		super();
-		this.driverID = driverID;
 		this.firstName = firstName;
 		this.surname = surname;
 	}

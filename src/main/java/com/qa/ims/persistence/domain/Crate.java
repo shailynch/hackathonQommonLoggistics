@@ -17,7 +17,6 @@ public class Crate {
 	
 	public Crate( Long fkScheduleId, String area) {
 		super();
-		this.crateId = crateId;
 		this.fkScheduleId = fkScheduleId;
 		this.area = area;
 	}

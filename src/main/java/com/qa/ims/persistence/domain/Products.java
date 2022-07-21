@@ -24,7 +24,6 @@ public class Products {
 	
 	public Products(String address, Long crateID, String status, Date lastUpdates) {
 		super();
-		this.productId = productId;
 		this.address = address;
 		this.crateID = crateID;
 		this.status = status;

@@ -26,7 +26,6 @@ public class Schedule {
 	
 	public Schedule( Date date, Long fkLorryID, String area, Long scheduleId) {
 		super();
-		this.fkDriverID = fkDriverID;
 		this.date = date;
 		this.fkLorryID = fkLorryID;
 		this.area = area;
