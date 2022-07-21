@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.dao.DriverDAO;
 import com.qa.ims.persistence.dao.LorryDAO;
 import com.qa.ims.persistence.domain.Lorry;
 import com.qa.ims.utils.Utils;
@@ -43,7 +42,7 @@ public class LorryController implements CrudController<Lorry> {
 		LOGGER.info("please enter the reg");
 		String reg = utils.getString();
 		Lorry lorry = lorryDAO.create(new Lorry(reg));
-		LOGGER.info("Customer created");
+		LOGGER.info("Lorry added");
 		return lorry;
 	}
 

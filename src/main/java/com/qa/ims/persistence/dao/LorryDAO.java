@@ -22,11 +22,10 @@ public class LorryDAO implements Dao<Lorry> {
 	public Lorry modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long lorryID = resultSet.getLong("id");
 		String reg = resultSet.getString("registration");
-		
-		return new Lorry (lorryID, reg);
+
+		return new Lorry(lorryID, reg);
 	}
 
-	
 	@Override
 	public List<Lorry> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -47,7 +46,8 @@ public class LorryDAO implements Dao<Lorry> {
 	public Lorry readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM lorry ORDER BY registration DESC LIMIT 1");) {
+				ResultSet resultSet = statement
+						.executeQuery("SELECT * FROM lorry ORDER BY registration DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -57,14 +57,12 @@ public class LorryDAO implements Dao<Lorry> {
 		return null;
 	}
 
-	
 	@Override
 	public Lorry create(Lorry lorry) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO lorry (id, registration) VALUES (?, ?)");) {
-			statement.setLong(1, lorry.getLorryID());
-			statement.setString(2, lorry.getReg());
+						.prepareStatement("INSERT INTO lorry (registration) VALUES (?)");) {
+			statement.setString(1, lorry.getReg());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -90,14 +88,13 @@ public class LorryDAO implements Dao<Lorry> {
 		return null;
 	}
 
-	
 	@Override
 	public Lorry update(Lorry lorry) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE lorry SET id = ?, registration = ? WHERE id = ?");) {
-			statement.setLong(1, lorry.getLorryID());
-			statement.setString(2, lorry.getReg());
+						.prepareStatement("UPDATE lorry SET registration = ? WHERE id = ?");) {
+			statement.setString(1, lorry.getReg());
+			statement.setLong(2, lorry.getLorryID());
 			statement.executeUpdate();
 			return read(lorry.getLorryID());
 		} catch (Exception e) {
@@ -107,7 +104,6 @@ public class LorryDAO implements Dao<Lorry> {
 		return null;
 	}
 
-	
 	@Override
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -121,5 +117,4 @@ public class LorryDAO implements Dao<Lorry> {
 		return 0;
 	}
 
-	
 }
