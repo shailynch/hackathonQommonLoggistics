@@ -27,15 +27,15 @@ public class CrateDAO implements Dao<Crate> {
 	}
 
 	/**
-	 * Reads all customers from the database
+	 * Reads all crates from the database
 	 * 
-	 * @return A list of customers
+	 * @return A list of crates
 	 */
 	@Override
 	public List<Crate> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM customers");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM crate");) {
 			List<Crate> crates = new ArrayList<>();
 			while (resultSet.next()) {
 				crates.add(modelFromResultSet(resultSet));
@@ -51,7 +51,7 @@ public class CrateDAO implements Dao<Crate> {
 	public Crate readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM customers ORDER BY id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM crate ORDER BY id DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -62,9 +62,9 @@ public class CrateDAO implements Dao<Crate> {
 	}
 
 	/**
-	 * Creates a customer in the database
+	 * Creates a crate in the database
 	 * 
-	 * @param customer - takes in a customer object. id will be ignored
+	 * @param crate - takes in a crate object. id will be ignored
 	 */
 	@Override
 	public Crate create(Crate crate) {
@@ -99,10 +99,10 @@ public class CrateDAO implements Dao<Crate> {
 	}
 
 	/**
-	 * Updates a customer in the database
+	 * Updates a crate in the database
 	 * 
-	 * @param customer - takes in a customer object, the id field will be used to
-	 *                 update that customer in the database
+	 * @param crate - takes in a crate object, the id field will be used to update
+	 *              that crate in the database
 	 * @return
 	 */
 	@Override
@@ -123,9 +123,9 @@ public class CrateDAO implements Dao<Crate> {
 	}
 
 	/**
-	 * Deletes a customer in the database
+	 * Deletes a crate in the database
 	 * 
-	 * @param id - id of the customer
+	 * @param id - id of the crate
 	 */
 	@Override
 	public int delete(long id) {

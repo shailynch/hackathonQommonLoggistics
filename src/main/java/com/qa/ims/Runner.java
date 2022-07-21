@@ -8,8 +8,8 @@ public class Runner {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static void main(String[] args) {
-		IMS ims = new IMS();
-		ims.imsSystem();
+		Logistics logistics = new Logistics();
+		logistics.logisticSystem();
 		LOGGER.info("SO LONG!");
 	}
 

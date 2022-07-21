@@ -1,17 +1,17 @@
 package com.qa.ims.controller;
 
-
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.persistence.dao.DriverDAO;
 import com.qa.ims.persistence.dao.LorryDAO;
 import com.qa.ims.persistence.domain.Lorry;
 import com.qa.ims.utils.Utils;
 
-public class LorryContoller implements CrudController<Lorry> {
-	
+public class LorryController implements CrudController<Lorry> {
+
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private LorryDAO lorryDAO;

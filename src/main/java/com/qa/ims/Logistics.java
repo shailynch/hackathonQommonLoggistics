@@ -14,6 +14,7 @@ import com.qa.ims.persistence.dao.CrateDAO;
 import com.qa.ims.persistence.dao.DriverDAO;
 import com.qa.ims.persistence.dao.LorryDAO;
 import com.qa.ims.persistence.dao.ProductDAO;
+import com.qa.ims.persistence.dao.ScheduleDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
@@ -29,7 +30,7 @@ public class Logistics {
 	private final ScheduleController shcedules;
 	private final Utils utils;
 
-	public IMS() {
+	public Logistics() {
 		this.utils = new Utils();
 		final DriverDAO driverDAO = new DriverDAO();
 		this.drivers = new DriverController(driverDAO, utils);
@@ -39,13 +40,12 @@ public class Logistics {
 		this.lorrys = new LorryController(lorryDAO, utils);
 		final ProductDAO productDAO = new ProductDAO();
 		this.products = new ProductController(productDAO, utils);
-		final ScheduleDAO scheduleDAO = new DriverDAO();
+		final ScheduleDAO scheduleDAO = new ScheduleDAO();
 		this.schedules = new ScheduleController(scheduleDAO, utils);
-		
-		
+
 	}
 
-	public void imsSystem() {
+	public void logisticSystem() {
 		LOGGER.info("Welcome to the Logistics Management System!");
 		DBUtils.connect();
 
@@ -68,11 +68,15 @@ public class Logistics {
 			CrudController<?> active = null;
 			switch (domain) {
 			case DRIVER:
-				active = this.drivers;
 				break;
-			case ITEM:
+			case SCHEDULE:
 				break;
-			case ORDER:
+			case CRATE:
+				active = this.crates;
+				break;
+			case LORRY:
+				break;
+			case PRODUCT:
 				break;
 			case STOP:
 				return;
@@ -80,7 +84,7 @@ public class Logistics {
 				break;
 			}
 
-			LOGGER.info(() ->"What would you like to do with " + domain.name().toLowerCase() + ":");
+			LOGGER.info(() -> "What would you like to do with " + domain.name().toLowerCase() + ":");
 
 			Action.printActions();
 			Action action = Action.getAction(utils);
