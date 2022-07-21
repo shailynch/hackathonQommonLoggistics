@@ -8,9 +8,13 @@ import com.qa.ims.controller.CrateController;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.DriverController;
 import com.qa.ims.controller.LorryController;
+import com.qa.ims.controller.ProductController;
+import com.qa.ims.controller.ScheduleController;
 import com.qa.ims.persistence.dao.CrateDAO;
 import com.qa.ims.persistence.dao.DriverDAO;
 import com.qa.ims.persistence.dao.LorryDAO;
+import com.qa.ims.persistence.dao.ProductDAO;
+import com.qa.ims.persistence.dao.ScheduleDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
@@ -21,9 +25,9 @@ public class Logistics {
 
 	private final DriverController drivers;
 	private final CrateController crates;
-//	private final ProductController products;
+	private final ProductController products;
 	private final LorryController lorrys;
-//	private final ScheduleController schedules;
+	private final ScheduleController schedules;
 	private final Utils utils;
 
 	public Logistics() {
@@ -34,10 +38,10 @@ public class Logistics {
 		this.crates = new CrateController(crateDAO, utils);
 		final LorryDAO lorryDAO = new LorryDAO();
 		this.lorrys = new LorryController(lorryDAO, utils);
-//		final ProductDAO productDAO = new ProductDAO();
-//		this.products = new ProductController(productDAO, utils);
-//		final ScheduleDAO scheduleDAO = new ScheduleDAO();
-//		this.schedules = new ScheduleController(scheduleDAO, utils);
+		final ProductDAO productDAO = new ProductDAO();
+		this.products = new ProductController(productDAO, utils);
+		final ScheduleDAO scheduleDAO = new ScheduleDAO();
+		this.schedules = new ScheduleController(scheduleDAO, utils);
 
 	}
 
@@ -76,7 +80,7 @@ public class Logistics {
 				active = this.lorrys;
 				break;
 			case PRODUCT:
-//				active = this.products;
+				active = this.products;
 				break;
 			case STOP:
 				return;

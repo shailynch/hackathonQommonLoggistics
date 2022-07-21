@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.domain;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Product {
@@ -9,10 +10,14 @@ public class Product {
 	private Long crateID;
 	private String address;
 	private String status;
-	private LocalDateTime lastUpdated;
+	private Date lastUpdated;
 
-	public Product(Long productID, Long crateID, String address, String status) {
-		
+	public Product(Long productID, Long crateID, String address, String status, Date lastUpdated) {
+
+	}
+
+	public Product(Long crateID, String address, String status, Date lastUpdated) {
+
 	}
 
 	public Long getProductID() {
@@ -47,12 +52,14 @@ public class Product {
 		this.status = status;
 	}
 
-	public LocalDateTime getLastUpdated() {
+	public Date getLastUpdated() {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(LocalDateTime lastUpdated) {
-		this.lastUpdated = lastUpdated;
+	public void setLastUpdated(Date lastUpdated) {
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		this.lastUpdated = new Date(ts.getTime());
+
 	}
 
 	@Override

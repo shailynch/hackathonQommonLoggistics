@@ -1,16 +1,18 @@
 package com.qa.ims.controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.dao.CustomerDAO;
+import com.qa.ims.persistence.dao.ProductDAO;
 import com.qa.ims.persistence.domain.Product;
 import com.qa.ims.utils.Utils;
 
-public class ProductController implements  CrudController<Product> {
-	
+public class ProductController implements CrudController<Product> {
+
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private ProductDAO productDAO;
@@ -22,51 +24,52 @@ public class ProductController implements  CrudController<Product> {
 	}
 
 	@Override
-	public List<product> readAll() {
+	public List<Product> readAll() {
 		List<Product> products = productDAO.readAll();
-		for (Product Products : Products) {
-			LOGGER.info(Product);
+		for (Product product : products) {
+			LOGGER.info(product);
 		}
-		return Products;
-		
-		
+		return products;
+
 	}
 
 	@Override
-	public product create() {
+	public Product create() {
 		LOGGER.info("Please enter an address");
 		String address = utils.getString();
 		LOGGER.info("Please enter a crate id");
-		Long crateID =utils.getLong();
+		Long crateID = utils.getLong();
 		LOGGER.info("Please enter a status");
-		String status =utils.getString();
-		
-		Product products = productDAO.create(new Product(address, crateID, status));
+		String status = utils.getString();
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		Date lastUpdated = new Date(ts.getTime());
+		Product products = productDAO.create(new Product(crateID, address, status, lastUpdated));
 		LOGGER.info("Product created");
 		return products;
 	}
 
 	@Override
-	public product update() {
+	public Product update() {
 		LOGGER.info("Please enter the product id you would like to update");
-		Long productId = utils.getLong();
+		Long productID = utils.getLong();
 		LOGGER.info("Please enter the address to update");
 		String address = utils.getString();
 		LOGGER.info("Please enter the crate id");
 		Long crateID = utils.getLong();
 		LOGGER.info("Please enter the product status");
 		String status = utils.getString();
-		return product;
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		Date lastUpdated = new Date(ts.getTime());
+		Product products = productDAO.update(new Product(productID, crateID, address, status, lastUpdated));
+		return products;
 	}
 
 	@Override
 	public int delete() {
 		LOGGER.info("Please enter the id of the product you would like to delete");
-		Long productId = utils.getLong();
-		return productDAO.delete(productid);
-		
+		Long productID = utils.getLong();
+		return productDAO.delete(productID);
+
 	}
 
-	
-	
 }

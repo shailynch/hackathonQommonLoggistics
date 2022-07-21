@@ -1,11 +1,11 @@
 package com.qa.ims.persistence.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.qa.ims.persistence.domain.Product;
 import com.qa.ims.utils.DBUtils;
 
 public class ProductDAO implements Dao<Product> {
-	
+
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
@@ -25,9 +25,9 @@ public class ProductDAO implements Dao<Product> {
 		Long crateID = resultSet.getLong("crate_id");
 		String address = resultSet.getString("address");
 		String status = resultSet.getString("delivery_status");
-	
-		
-		return new Product(productID, crateID, address, status);
+		Date lastUpdated = resultSet.getDate("last_updated");
+
+		return new Product(productID, crateID, address, status, lastUpdated);
 	}
 
 	@Override
@@ -63,12 +63,12 @@ public class ProductDAO implements Dao<Product> {
 	@Override
 	public Product create(Product product) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO product(id, address, crate_id, delivery_status) VALUES (?, ?, ?, ?)");) {
-			statement.setLong(1, product.getProductID());
+				PreparedStatement statement = connection.prepareStatement(
+						"INSERT INTO product(address, crate_id, delivery_status, last_updated) VALUES (?, ?, ?, ?)");) {
+			statement.setString(1, product.getAddress());
 			statement.setLong(2, product.getCrateID());
-			statement.setString(3, product.getAddress());
-			statement.setString(4, product.getStatus());
+			statement.setString(3, product.getStatus());
+			statement.setDate(4, product.getLastUpdated());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -94,7 +94,6 @@ public class ProductDAO implements Dao<Product> {
 		return null;
 	}
 
-	
 	@Override
 	public Product update(Product product) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -124,6 +123,5 @@ public class ProductDAO implements Dao<Product> {
 		}
 		return 0;
 	}
-
 
 }
