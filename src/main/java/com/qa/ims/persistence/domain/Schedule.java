@@ -13,7 +13,16 @@ public class Schedule {
 	private String area;
 	private Long scheduleId;
 	
+
 	
+	public Schedule(Long fkDriverID, Date date, Long fkLorryID, String area, Long scheduleId) {
+		super();
+		this.fkDriverID = fkDriverID;
+		this.date = date;
+		this.fkLorryID = fkLorryID;
+		this.area = area;
+		this.scheduleId = scheduleId;
+	}
 	public Long getScheduleId() {
 		return scheduleId;
 	}
