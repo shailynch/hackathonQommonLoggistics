@@ -13,6 +13,37 @@ public class Schedule {
 	private String area;
 	private Long scheduleId;
 	
+	public Schedule(Long fkDriverID, Long fkLorryID, String area) {
+		super();
+		this.fkDriverID = fkDriverID;
+		this.fkLorryID = fkLorryID;
+		this.area = area;
+	}
+
+	public Schedule(Long scheduleId, Long fkDriverID, Long fkLorryID, String area) {
+		super();
+		this.scheduleId = scheduleId;
+		this.fkDriverID = fkDriverID;
+		this.fkLorryID = fkLorryID;
+		this.area = area;
+	}
+	
+	public Schedule(Long fkDriverID, Date date, Long fkLorryID, String area, Long scheduleId) {
+		super();
+		this.fkDriverID = fkDriverID;
+		this.date = date;
+		this.fkLorryID = fkLorryID;
+		this.area = area;
+		this.scheduleId = scheduleId;
+	}
+	
+	public Schedule( Date date, Long fkLorryID, String area, Long scheduleId) {
+		super();
+		this.date = date;
+		this.fkLorryID = fkLorryID;
+		this.area = area;
+		this.scheduleId = scheduleId;
+	}
 	
 	public Long getScheduleId() {
 		return scheduleId;

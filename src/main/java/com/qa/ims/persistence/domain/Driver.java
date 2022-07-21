@@ -15,6 +15,12 @@ public class Driver {
 		this.lastName = lastName;
 	}
 
+	public Driver(String firstName, String lastName) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
 	public Long getDriverID() {
 		return driverID;
 	}
@@ -59,7 +65,7 @@ public class Driver {
 
 	@Override
 	public String toString() {
-		return "Driver [driverID=" + driverID + ", firstName=" + firstName + ", surname=" + lastName + "]";
+		return "Driver [driverID=" + driverID + ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 
 }

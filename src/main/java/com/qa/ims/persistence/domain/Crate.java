@@ -4,39 +4,48 @@ import java.util.Objects;
 
 public class Crate {
 
-	private Long crateID;
-	private Long scheduleID;
+	private Long crateId;
+	private Long fkScheduleId;
 	private String area;
-
-	public Long getCrateID() {
-		return crateID;
+	
+	public Crate(Long crateId, Long fkScheduleId, String area) {
+		super();
+		this.crateId = crateId;
+		this.fkScheduleId = fkScheduleId;
+		this.area = area;
 	}
-
-	public void setCrateID(Long crateID) {
-		this.crateID = crateID;
+	
+	public Crate( Long fkScheduleId, String area) {
+		super();
+		this.fkScheduleId = fkScheduleId;
+		this.area = area;
 	}
-
-	public Long getScheduleID() {
-		return scheduleID;
+	
+	
+	public Long getCrateId() {
+		return crateId;
 	}
-
-	public void setScheduleID(Long scheduleID) {
-		this.scheduleID = scheduleID;
+	public void setCrateId(Long crateId) {
+		this.crateId = crateId;
 	}
-
+	public Long getFkScheduleId() {
+		return fkScheduleId;
+	}
+	public void setFkScheduleId(Long fkScheduleId) {
+		this.fkScheduleId = fkScheduleId;
+	}
 	public String getArea() {
 		return area;
 	}
-
 	public void setArea(String area) {
 		this.area = area;
 	}
 
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(crateID, area);
+		return Objects.hash(area, crateId, fkScheduleId);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -46,12 +55,15 @@ public class Crate {
 		if (getClass() != obj.getClass())
 			return false;
 		Crate other = (Crate) obj;
-		return Objects.equals(crateID, other.crateID) && Objects.equals(area, other.area);
+		return Objects.equals(area, other.area) && Objects.equals(crateId, other.crateId)
+				&& Objects.equals(fkScheduleId, other.fkScheduleId);
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Lorry [crateID=" + crateID + "Schedule ID" + scheduleID + ", area=" + area + "]";
+		return "Crate [crateId=" + crateId + ", fkScheduleId=" + fkScheduleId + ", area=" + area + "]";
 	}
-
+	
+	
+	
 }
