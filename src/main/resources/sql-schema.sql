@@ -4,6 +4,13 @@ CREATE SCHEMA IF NOT EXISTS `logistics`;
 
 USE `logistics` ;
 
+CREATE TABLE IF NOT EXISTS `logistics`.`manager` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `first_name` VARCHAR(40) DEFAULT NULL,
+    `last_name` VARCHAR(40) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `logistics`.`driver` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `first_name` VARCHAR(40) DEFAULT NULL,
