@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.persistence.domain.Crate;
 import com.qa.ims.utils.DBUtils;
 
-public class CrateDAO {
+public class CrateDAO implements Dao<Crate> {
 	
 
 	public static final Logger LOGGER = LogManager.getLogger();
