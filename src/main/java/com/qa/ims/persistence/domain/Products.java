@@ -22,6 +22,13 @@ public class Products {
 		this.lastUpdates = lastUpdates;
 	}
 	
+	public Products(String address, Long crateID, String status, Date lastUpdates) {
+		super();
+		this.address = address;
+		this.crateID = crateID;
+		this.status = status;
+		this.lastUpdates = lastUpdates;
+	}
 	
 	public Long getProductId() {
 		return productId;
