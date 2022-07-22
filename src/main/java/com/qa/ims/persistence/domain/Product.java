@@ -12,12 +12,21 @@ public class Product {
 	private String status;
 	private Date lastUpdated;
 
-	public Product(Long productID, Long crateID, String address, String status, Date lastUpdated) {
-
+	public Product(Long crateID, String address, String status, Date lastUpdated) {
+		super();
+		this.crateID = crateID;
+		this.address = address;
+		this.status = status;
+		this.lastUpdated = lastUpdated;
 	}
 
-	public Product(Long crateID, String address, String status, Date lastUpdated) {
-
+	public Product(Long productID, Long crateID, String address, String status, Date lastUpdated) {
+		super();
+		this.productID = productID;
+		this.crateID = crateID;
+		this.address = address;
+		this.status = status;
+		this.lastUpdated = lastUpdated;
 	}
 
 	public Long getProductID() {
