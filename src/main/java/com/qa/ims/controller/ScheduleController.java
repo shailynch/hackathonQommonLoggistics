@@ -1,5 +1,7 @@
 package com.qa.ims.controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -39,8 +41,9 @@ public class ScheduleController implements CrudController<Schedule> {
 		Long fkLorryID = utils.getLong();
 		LOGGER.info("Please enter an area");
 		String area = utils.getString();
-
-		Schedule schedule = scheduleDAO.create(new Schedule(fkDriverID, fkLorryID, area));
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		Date date = new Date(ts.getTime());
+		Schedule schedule = scheduleDAO.create(new Schedule(fkDriverID, fkLorryID, area, date));
 		LOGGER.info("Schedule created");
 		return schedule;
 	}
@@ -55,8 +58,9 @@ public class ScheduleController implements CrudController<Schedule> {
 		Long fkLorryID = utils.getLong();
 		LOGGER.info("Please enter an area");
 		String area = utils.getString();
-
-		Schedule schedule = scheduleDAO.update(new Schedule(scheduleId, fkDriverID, fkLorryID, area));
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		Date date = new Date(ts.getTime());
+		Schedule schedule = scheduleDAO.update(new Schedule(scheduleId, fkDriverID, area, fkLorryID, date));
 		LOGGER.info("Schedule Updated");
 		return schedule;
 	}
