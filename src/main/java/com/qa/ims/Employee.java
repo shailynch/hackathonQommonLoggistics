@@ -19,7 +19,8 @@ public class Employee {
 				Logistics logistics = new Logistics();
 				logistics.logisticSystem();
 			} else if (employeeType.contains("employee")) {
-				LOGGER.info("functionality coming");
+				Logistics logistics = new Logistics();
+				logistics.employeeLogisticSystem();
 			}
 
 		} while (!employeeType.contains("exit"));

@@ -16,6 +16,7 @@ import com.qa.ims.persistence.dao.LorryDAO;
 import com.qa.ims.persistence.dao.ProductDAO;
 import com.qa.ims.persistence.dao.ScheduleDAO;
 import com.qa.ims.persistence.domain.Domain;
+import com.qa.ims.persistence.domain.EmployeeDomain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
 
@@ -89,6 +90,56 @@ public class Logistics {
 			}
 
 			LOGGER.info(() -> "What would you like to do with " + domain.name().toLowerCase() + ":");
+
+			Action.printActions();
+			Action action = Action.getAction(utils);
+
+			if (action == Action.RETURN) {
+				changeDomain = true;
+			} else {
+				doAction(active, action);
+			}
+		} while (!changeDomain);
+	}
+
+	public void employeeLogisticSystem() {
+		LOGGER.info("Welcome to the Logistics Employee System!");
+		DBUtils.connect();
+
+		EmployeeDomain employeeDomain = null;
+		do {
+			LOGGER.info("Which entity would you like to use?");
+			EmployeeDomain.printDomains();
+
+			employeeDomain = EmployeeDomain.getDomain(utils);
+
+			employeeDomainAction(employeeDomain);
+
+		} while (employeeDomain != EmployeeDomain.STOP);
+	}
+
+	private void employeeDomainAction(EmployeeDomain employeeDomain) {
+		boolean changeDomain = false;
+		do {
+
+			CrudController<?> active = null;
+			switch (employeeDomain) {
+			case SCHEDULE:
+				active = this.schedules;
+				break;
+			case CRATE:
+				active = this.crates;
+				break;
+			case PRODUCT:
+				active = this.products;
+				break;
+			case STOP:
+				return;
+			default:
+				break;
+			}
+
+			LOGGER.info(() -> "What would you like to do with " + employeeDomain.name().toLowerCase() + ":");
 
 			Action.printActions();
 			Action action = Action.getAction(utils);
