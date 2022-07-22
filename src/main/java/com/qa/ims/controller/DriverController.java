@@ -48,7 +48,7 @@ public class DriverController implements CrudController<Driver> {
 		LOGGER.info("Please enter a surname");
 		String surname = utils.getString();
 		Driver driver = driverDAO.create(new Driver(firstName, surname));
-		LOGGER.info("Customer created");
+		LOGGER.info("driver created");
 		return driver;
 	}
 
