@@ -5,13 +5,12 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.dao.CustomerDAO;
 import com.qa.ims.persistence.dao.ScheduleDAO;
 import com.qa.ims.persistence.domain.Schedule;
 import com.qa.ims.utils.Utils;
 
 public class ScheduleController implements CrudController<Schedule> {
-	
+
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private ScheduleDAO scheduleDAO;
@@ -40,13 +39,12 @@ public class ScheduleController implements CrudController<Schedule> {
 		Long fkLorryID = utils.getLong();
 		LOGGER.info("Please enter an area");
 		String area = utils.getString();
-		
+
 		Schedule schedule = scheduleDAO.create(new Schedule(fkDriverID, fkLorryID, area));
 		LOGGER.info("Schedule created");
 		return schedule;
 	}
 
-	
 	@Override
 	public Schedule update() {
 		LOGGER.info("Please enter the id of the schedule you would like to update");
@@ -57,7 +55,7 @@ public class ScheduleController implements CrudController<Schedule> {
 		Long fkLorryID = utils.getLong();
 		LOGGER.info("Please enter an area");
 		String area = utils.getString();
-		
+
 		Schedule schedule = scheduleDAO.update(new Schedule(scheduleId, fkDriverID, fkLorryID, area));
 		LOGGER.info("Schedule Updated");
 		return schedule;
