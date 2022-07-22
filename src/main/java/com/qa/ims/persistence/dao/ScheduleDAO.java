@@ -72,12 +72,11 @@ public class ScheduleDAO implements Dao<Schedule> {
 	public Schedule create(Schedule schedule) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO schedule(id, driver_id, lorry_id, area, schedule_date) VALUES (?, ?, ?, ?, ?)");) {
-			statement.setLong(1, schedule.getScheduleId());
-			statement.setDate(5, schedule.getDate());
-			statement.setLong(3, schedule.getFkLorryID());
-			statement.setString(4, schedule.getArea());
-			statement.setLong(2, schedule.getFkDriverID());
+						.prepareStatement("INSERT INTO schedule(driver_id, lorry_id, area, schedule_date) VALUES (?, ?, ?, ?)");) {
+			statement.setDate(4, schedule.getDate());
+			statement.setLong(2, schedule.getFkLorryID());
+			statement.setString(3, schedule.getArea());
+			statement.setLong(1, schedule.getFkDriverID());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
