@@ -13,8 +13,8 @@ public class Runner {
 		DBUtils.connect();
 		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
 
-		Logistics logistics = new Logistics();
-		logistics.logisticSystem();
+		Employee employee = new Employee();
+		employee.checkEmployee();
 		LOGGER.info("SO LONG!");
 	}
 
