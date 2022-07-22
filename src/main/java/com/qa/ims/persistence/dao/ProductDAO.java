@@ -97,11 +97,12 @@ public class ProductDAO implements Dao<Product> {
 	@Override
 	public Product update(Product product) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("UPDATE product SET crate_id = ?, address = ? WHERE id = ?");) {
+				PreparedStatement statement = connection.prepareStatement(
+						"UPDATE product SET crate_id = ?, address = ?, last_updated = ? WHERE id = ?");) {
 			statement.setLong(1, product.getCrateID());
 			statement.setString(2, product.getAddress());
-			statement.setLong(3, product.getProductID());
+			statement.setDate(3, product.getLastUpdated());
+			statement.setLong(4, product.getProductID());
 			statement.executeUpdate();
 			return read(product.getProductID());
 		} catch (Exception e) {

@@ -26,7 +26,7 @@ public class ScheduleDAO implements Dao<Schedule> {
 		String area = resultSet.getString("area");
 		Long scheduleId = resultSet.getLong("id");
 		Long driverID = resultSet.getLong("driver_id");
-		return new Schedule(driverID, fkLorryID, area, scheduleId, date);
+		return new Schedule(scheduleId, fkLorryID, area, driverID, date);
 	}
 
 	/**
@@ -107,13 +107,15 @@ public class ScheduleDAO implements Dao<Schedule> {
 	@Override
 	public Schedule update(Schedule schedule) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("UPDATE schedule SET driver_id = ?, lorry_id = ?, area = ? WHERE id = ?");) {
+				PreparedStatement statement = connection.prepareStatement(
+						"UPDATE schedule SET driver_id = ?, lorry_id = ?, area = ?, schedule_date = ? WHERE id = ?");) {
 			statement.setLong(1, schedule.getFkDriverID());
 			statement.setLong(2, schedule.getFkLorryID());
 			statement.setString(3, schedule.getArea());
-			statement.setLong(4, schedule.getScheduleId());
+			statement.setDate(4, schedule.getDate());
+			statement.setLong(5, schedule.getScheduleId());
 			statement.executeUpdate();
+			System.out.print(schedule);
 			return read(schedule.getScheduleId());
 		} catch (Exception e) {
 			LOGGER.debug(e);

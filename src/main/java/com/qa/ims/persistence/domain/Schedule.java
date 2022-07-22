@@ -19,7 +19,7 @@ public class Schedule {
 		this.date = date;
 	}
 
-	public Schedule(Long fkDriverID, Long fkLorryID, String area, Long scheduleId, Date date) {
+	public Schedule(Long scheduleId, Long fkDriverID, String area, Long fkLorryID, Date date) {
 		super();
 		this.fkDriverID = fkDriverID;
 		this.date = date;
