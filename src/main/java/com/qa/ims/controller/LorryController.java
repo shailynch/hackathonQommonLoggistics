@@ -29,7 +29,7 @@ public class LorryController implements CrudController<Lorry> {
 	public List<Lorry> readAll() {
 		List<Lorry> lorries = lorryDAO.readAll();
 		for (Lorry lorry : lorries) {
-			LOGGER.info(lorries);
+			LOGGER.info(lorry);
 		}
 		return lorries;
 	}
